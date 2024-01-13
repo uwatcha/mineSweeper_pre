@@ -5,8 +5,8 @@ uint8_t BUTTON_A  = A3;
 uint8_t BUTTON_B  = A4;
 uint8_t BUTTON_C  = A5;
 uint8_t SEG_LATCH = A1;
-uint8_t SEG_SDI   = A0;
-uint8_t SEG_SCK   = 13;
+uint8_t SEG_SDI   =  3
+uint8_t SEG_SCK   =  4;
 
 void setup() {
   Serial.begin(9600);
