@@ -1,7 +1,9 @@
-int anode[] = {1, 3, 10, 7, 8};
-int cathode[] = {12, 11, 2, 9, 4, 5, 6};
-int tmp[] = {1, 0, 0, 0, 0};
-int LED[7][5] = {
+const int DIRECT[] = {1, 2, 3, 4, 5, 6};
+const int REGISTER[] = {7, 8, 9, 10, 11, 12};
+const int ANODE[] = {1, 3, 10, 7, 8};
+const int CATHODE[] = {12, 11, 2, 9, 4, 5, 6};
+const int tmp[] = {1, 0, 0, 0, 0};
+const int LED[7][5] = {
   {0,1,1,1,0},
   {1,0,0,0,1},
   {1,0,0,0,1},
@@ -17,8 +19,8 @@ void dotMatrix () {
   b |= write(1,  0);
   b |= write(3,  0);
   b |= write(10, 0);
-  b |= write(7,  0);
-  b |= write(8,  1);
+  b |= write(7,  1);
+  b |= write(8,  0);
 
   b |= write(12, 1);
   b |= write(11, 1);
@@ -62,18 +64,20 @@ void dotMatrix () {
 }
 int write (int n, bool isHi) {
   Serial.println("------------------");
-  if (n==1 || n==3 || n==2 || n==4 || n==5 || n==6) {
+  if (isValue(DIRECT, n)) {
     if (isHi) digitalWrite(MAT[n], HIGH);
     else      digitalWrite(MAT[n], LOW);
     return 0;
   }
-  else if (n==10 || n==7 || n==8 || n==12 || n==11 || n==9) {
+  else if (isValue(REGISTER, n)) {
     int tmp;
     if (isHi) tmp = B00100000;
-    else      tmp = B00000000;
-    tmp = tmp >> (n-7);
+    else       tmp = B00000000;
     Serial.println(n);
     Serial.println(tmp, BIN);
+    tmp = tmp >> (n-7);
+    // Serial.println(n);
+    // Serial.println(tmp, BIN);
     return tmp;
   }
   Serial.println("------------------");
@@ -98,6 +102,19 @@ void reg (int b) {
   digitalWrite(REG_LATCH, LOW);
   shiftOut(REG_SER, REG_CLK, LSBFIRST, b);
   digitalWrite(REG_LATCH, HIGH);
+}
+
+bool isValue (int *array, int value) {
+  int size;
+  if (array==DIRECT || array==REGISTER) size = 6;
+  else if (array==ANODE) size = 5;
+  else if (array==CATHODE) size = 7;
+  for (int i=0; i<size; i++) {
+    if (array[i]==value) {
+      return true;
+    }
+  }
+  return false;
 }
 /*
 2：7　　high
