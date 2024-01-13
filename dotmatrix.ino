@@ -1,5 +1,6 @@
 int anode[] = {1, 3, 10, 7, 8};
 int cathode[] = {12, 11, 2, 9, 4, 5, 6};
+int tmp[] = {1, 0, 0, 0, 0};
 int LED[7][5] = {
   {0,1,1,1,0},
   {1,0,0,0,1},
@@ -12,19 +13,36 @@ int LED[7][5] = {
 void dotMatrix () {
   Serial.println("============================");
   int b = B00000000;
-  b |= write(1,  1);
+
+  b |= write(1,  0);
   b |= write(3,  0);
   b |= write(10, 0);
   b |= write(7,  0);
-  b |= write(8,  0);
+  b |= write(8,  1);
 
   b |= write(12, 1);
   b |= write(11, 1);
   b |= write(2,  1);
-  b |= write(9,  0);
+  b |= write(9,  1);
   b |= write(4,  1);
   b |= write(5,  1);
-  b |= write(6,  1);
+  b |= write(6,  0);
+  reg(b);
+
+  // for (int i=0; i<5; i++) {
+  //   b |= write(anode[i], tmp[i]);
+  //   b |= write(12, 1);
+  //   b |= write(11, 1);
+  //   b |= write(2,  1);
+  //   b |= write(9,  0);
+  //   b |= write(4,  1);
+  //   b |= write(5,  1);
+  //   b |= write(6,  1);
+  //   reg(b);
+  // }
+
+
+  
   //Serial.print(b, BIN);
   // digitalWrite(MAT[1], LOW);
   // digitalWrite(MAT[3], HIGH);
@@ -39,17 +57,20 @@ void dotMatrix () {
   // digitalWrite(MAT[4], HIGH);
   // digitalWrite(MAT[5], LOW);
   // digitalWrite(MAT[6], HIGH);
-  reg(b);
+  
   Serial.println("============================");
 }
 int write (int n, bool isHi) {
   Serial.println("------------------");
   if (n==1 || n==3 || n==2 || n==4 || n==5 || n==6) {
-    digitalWrite(MAT[n], isHi);
+    if (isHi) digitalWrite(MAT[n], HIGH);
+    else      digitalWrite(MAT[n], LOW);
     return 0;
   }
-  else if ((n==10 || n==7 || n==8 || n==12 || n==11 || n==9) && isHi) {
-    int tmp = B00100000;
+  else if (n==10 || n==7 || n==8 || n==12 || n==11 || n==9) {
+    int tmp;
+    if (isHi) tmp = B00100000;
+    else      tmp = B00000000;
     tmp = tmp >> (n-7);
     Serial.println(n);
     Serial.println(tmp, BIN);
