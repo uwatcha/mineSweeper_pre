@@ -1,8 +1,10 @@
 AE7SEGGPIO ae7seg(SEG_LATCH, SEG_SDI, SEG_SCK);
-int count = 0;
-void seg() {
+void seg(int n) {
   ae7seg.beginWrite();
-  ae7seg.writeNumber(count);
+  ae7seg.writeNumber(n);
   ae7seg.endWrite();
-  count = (++count)%10;
+}
+
+int ctoi(char c) {
+  return c-55;
 }

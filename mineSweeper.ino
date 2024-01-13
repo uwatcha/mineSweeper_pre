@@ -24,6 +24,6 @@ void loop() {
   buttonA();
   buttonB();
   buttonC();
-  seg();
+  seg(ctoi('F'));
   noTone(SPEAKER);
 }
