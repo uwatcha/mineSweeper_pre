@@ -23,12 +23,12 @@ void dotMatrix () {
   b |= write(8,  0);
 
   b |= write(12, 1);
-  b |= write(11, 1);
+  b |= write(11, 0);
   b |= write(2,  1);
-  b |= write(9,  1);
+  b |= write(9,  0);
   b |= write(4,  1);
-  b |= write(5,  1);
-  b |= write(6,  0);
+  b |= write(5,  0);
+  b |= write(6,  1);
   reg(b);
 
   // for (int i=0; i<5; i++) {
@@ -65,14 +65,26 @@ void dotMatrix () {
 int write (int n, bool isHi) {
   Serial.println("------------------");
   if (isValue(DIRECT, n)) {
-    if (isHi) digitalWrite(MAT[n], HIGH);
-    else      digitalWrite(MAT[n], LOW);
+    if (isValue(ANODE, n)) {
+      if (isHi) digitalWrite(MAT[n], HIGH);
+      else      digitalWrite(MAT[n], LOW);
+    }
+    else if (isValue(CATHODE, n)) {
+      if (isHi) digitalWrite(MAT[n], !HIGH);
+      else      digitalWrite(MAT[n], !LOW);
+    }
     return 0;
   }
   else if (isValue(REGISTER, n)) {
     int tmp;
-    if (isHi) tmp = B00100000;
-    else       tmp = B00000000;
+    if (isValue(ANODE, n)) {
+      if (isHi) tmp = B00100000;
+      else      tmp = B00000000;
+    }
+    else if (isValue(CATHODE, n)) {
+      if (isHi) tmp = B00000000;
+      else      tmp = B00100000;
+    }
     Serial.println(n);
     Serial.println(tmp, BIN);
     tmp = tmp >> (n-7);
