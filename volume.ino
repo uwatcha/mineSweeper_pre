@@ -2,7 +2,6 @@ int currentMode = -1;
 int VOLUME_MARGIN = 8;
 
 void volume() {
-  Serial.println(currentMode);
   int mode = getMode();
   if (currentMode != mode || currentMode==-1) {
     if (currentMode != -1) sound(VOLUME);
