@@ -3,6 +3,7 @@ uint8_t VOLUME  = A2;
 uint8_t BUTTON_A = A3;
 uint8_t BUTTON_B = A4;
 uint8_t BUTTON_C = A5;
+int jikkenyou_sugunikese = 0;
 
 void setup() {
   Serial.begin(9600);
