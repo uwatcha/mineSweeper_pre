@@ -12,58 +12,22 @@ const int LED[7][5] = {
   {1,0,0,0,1},
   {1,0,0,0,1}
 };
+
 void dotMatrix () {
   Serial.println("============================");
   int b = B00000000;
-
-  b |= write(1,  0);
-  b |= write(3,  0);
-  b |= write(10, 0);
-  b |= write(7,  1);
-  b |= write(8,  0);
-
-  b |= write(12, 1);
-  b |= write(11, 0);
-  b |= write(2,  1);
-  b |= write(9,  0);
-  b |= write(4,  1);
-  b |= write(5,  0);
-  b |= write(6,  1);
+  for (int i=0; i<7; i++) {
+    b |= write(CATHODE[i], 1);
+    for (int j=0; j<5; j++) {
+      b |= write(ANODE[j], LED[i][j]);
+      Serial.print(LED[7][5]);
+    }
+  }
   reg(b);
-
-  // for (int i=0; i<5; i++) {
-  //   b |= write(anode[i], tmp[i]);
-  //   b |= write(12, 1);
-  //   b |= write(11, 1);
-  //   b |= write(2,  1);
-  //   b |= write(9,  0);
-  //   b |= write(4,  1);
-  //   b |= write(5,  1);
-  //   b |= write(6,  1);
-  //   reg(b);
-  // }
-
-
-  
-  //Serial.print(b, BIN);
-  // digitalWrite(MAT[1], LOW);
-  // digitalWrite(MAT[3], HIGH);
-  // //digitalWrite(10, LOW);
-  // //digitalWrite(7, HIGH);
-  // //digitalWrite(8, LOW);
-
-  // //digitalWrite(12, HIGH);
-  // //digitalWrite(11, HIGH);
-  // digitalWrite(MAT[2], LOW);
-  // //digitalWrite(9, HIGH);
-  // digitalWrite(MAT[4], HIGH);
-  // digitalWrite(MAT[5], LOW);
-  // digitalWrite(MAT[6], HIGH);
-  
-  Serial.println("============================");
+  Serial.println("\n============================");
 }
 int write (int n, bool isHi) {
-  Serial.println("------------------");
+  //Serial.println("------------------");
   if (isValue(DIRECT, n)) {
     if (isValue(ANODE, n)) {
       if (isHi) digitalWrite(MAT[n], HIGH);
@@ -85,14 +49,14 @@ int write (int n, bool isHi) {
       if (isHi) tmp = B00000000;
       else      tmp = B00100000;
     }
-    Serial.println(n);
-    Serial.println(tmp, BIN);
+    //Serial.println(n);
+    //Serial.println(tmp, BIN);
     tmp = tmp >> (n-7);
     // Serial.println(n);
     // Serial.println(tmp, BIN);
     return tmp;
   }
-  Serial.println("------------------");
+  //Serial.println("------------------");
 }
 
 void initDotMatrix () {
