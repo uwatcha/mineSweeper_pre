@@ -21,6 +21,7 @@ void setup() {
 }
 
 void loop() {
+  volume();
   buttonA();
   buttonB();
   buttonC();
