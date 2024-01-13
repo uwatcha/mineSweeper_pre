@@ -21,6 +21,6 @@ void sound(uint8_t part) {
   }
   else if (part==VOLUME) {
     tone(SPEAKER, doremi[2]);
-    delay(10);
+    delay(1);  
   }
 }
