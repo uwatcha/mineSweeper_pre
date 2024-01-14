@@ -41,7 +41,7 @@ void dotMatrix () {/*int (*arrays)[7]*/
 int write (int n, bool isHigh) { //問題はこの中
   int result;
   if (isValue(DIRECT, n)) {
-    digitalWrite(MAT[n-1], isHigh);
+    digitalWrite(MAT[n], isHigh);
     return 0;
   }
   else if (isValue(REGISTER, n)) {
@@ -76,11 +76,11 @@ void initDotMatrix () {
   pinMode(REG_SER, OUTPUT);
   pinMode(REG_LATCH, OUTPUT);
   pinMode(REG_CLK, OUTPUT);
-  digitalWrite(MAT[0], HIGH);//1
-  digitalWrite(MAT[2], HIGH);//3
-  digitalWrite(MAT[1], LOW);//2
-  digitalWrite(MAT[3], LOW);//4
-  digitalWrite(MAT[4], LOW);//5
-  digitalWrite(MAT[5], LOW);//6
+  digitalWrite(MAT[1], HIGH);//1
+  digitalWrite(MAT[3], HIGH);//3
+  digitalWrite(MAT[2], LOW);//2
+  digitalWrite(MAT[4], LOW);//4
+  digitalWrite(MAT[5], LOW);//5
+  digitalWrite(MAT[6], LOW);//6
   reg(B00110100);
 }
