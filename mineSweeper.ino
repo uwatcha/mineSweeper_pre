@@ -18,6 +18,7 @@ const int LED[5][7] = {
   {0,1,0,1,0,1,0},
   {1,0,1,0,1,0,1}
 };
+int count = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -33,11 +34,19 @@ void setup() {
 }
 
 void loop() {
-  //volume();
-  //buttonA();
-  //buttonB();
-  //buttonC();
-  //seg(ctoi('F'));
-  dotMatrix();
-  //noTone(SPEAKER); 
+  volume();
+  delay(0);
+  buttonA();
+  delay(0);
+  buttonB();
+  delay(0);
+  buttonC();
+  delay(0);
+  seg(ctoi('F'));
+  delay(0);
+  dotMatrix(LED, count);
+  delay(0);
+  noTone(SPEAKER); 
+  delayMicroseconds(50);
+  count = (++count)%5;
 }

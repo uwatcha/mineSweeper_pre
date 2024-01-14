@@ -29,7 +29,7 @@ void buttonC () {
 
 
 bool buttonIsON (uint8_t button) {
-  delay(50);
+  //delay(50);
   if (digitalRead(button)==LOW && !buttonFlag) {
     buttonFlag = true;
     sound(button);
