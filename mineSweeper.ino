@@ -10,7 +10,14 @@ uint8_t SEG_SCK   =  4;
 uint8_t REG_SER   = 13;
 uint8_t REG_LATCH = 12;
 uint8_t REG_CLK   = 11;
-uint8_t MAT[] = {-1, 5, 6, 7, 8, 9, 10};
+uint8_t MAT[] = {5, 6, 7, 8, 9, 10};
+const int LED[5][7] = {
+  {1,0,1,0,1,0,1},
+  {0,1,0,1,0,1,0},
+  {1,0,1,0,1,0,1},
+  {0,1,0,1,0,1,0},
+  {1,0,1,0,1,0,1}
+};
 
 void setup() {
   Serial.begin(9600);
@@ -32,7 +39,5 @@ void loop() {
   buttonC();
   seg(ctoi('F'));
   dotMatrix();
-  noTone(SPEAKER);
-
-  
+  noTone(SPEAKER); 
 }
