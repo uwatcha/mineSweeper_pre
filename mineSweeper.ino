@@ -33,11 +33,11 @@ void setup() {
 }
 
 void loop() {
-  volume();
-  buttonA();
-  buttonB();
-  buttonC();
-  seg(ctoi('F'));
+  //volume();
+  //buttonA();
+  //buttonB();
+  //buttonC();
+  //seg(ctoi('F'));
   dotMatrix();
-  noTone(SPEAKER); 
+  //noTone(SPEAKER); 
 }

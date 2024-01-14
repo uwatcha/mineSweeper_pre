@@ -15,13 +15,15 @@ void resetDotMatrix () {/*int (*arrays)[7]*/
 }
 //ANODE[0]とCATHODE[6]が点灯しない
 void dotMatrix () {/*int (*arrays)[7]*/
-  resetDotMatrix();
-  int b = B00000000;
+  
   for (int i=0; i<5; i++) {
+    resetDotMatrix();
+    int b = B00000000;
     b |= write(ANODE[i], 1);
     for (int j=0; j<7; j++) {
-      b |= write(CATHODE[j], 0);
+      b |= write(CATHODE[j], !LED[i][j]);
     }
+    reg(b); 
   }
   // b |= write(1, 1);
   // b |= write(3, 1);
@@ -35,10 +37,9 @@ void dotMatrix () {/*int (*arrays)[7]*/
   // b |= write(4, 0);
   // b |= write(5, 0);
   // b |= write(6, 0);
-  reg(b); 
 }
 
-int write (int n, bool isHigh) { //問題はこの中
+int write (int n, bool isHigh) {
   int result;
   if (isValue(DIRECT, n)) {
     digitalWrite(MAT[n], isHigh);
@@ -76,11 +77,11 @@ void initDotMatrix () {
   pinMode(REG_SER, OUTPUT);
   pinMode(REG_LATCH, OUTPUT);
   pinMode(REG_CLK, OUTPUT);
-  digitalWrite(MAT[1], HIGH);//1
-  digitalWrite(MAT[3], HIGH);//3
-  digitalWrite(MAT[2], LOW);//2
-  digitalWrite(MAT[4], LOW);//4
-  digitalWrite(MAT[5], LOW);//5
-  digitalWrite(MAT[6], LOW);//6
+  digitalWrite(MAT[1], LOW);//1
+  digitalWrite(MAT[3], LOW);//3
+  digitalWrite(MAT[2], HIGH);//2
+  digitalWrite(MAT[4], HIGH);//4
+  digitalWrite(MAT[5], HIGH);//5
+  digitalWrite(MAT[6], HIGH);//6
   reg(B00110100);
 }
